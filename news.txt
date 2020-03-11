@@ -1,0 +1,7 @@
+
+You might want to replace the last line with x = f.read().splitlines() to avoid including the newlines (\n) - as mentioned in this post: stackoverflow.com/a/20756176/436794 – Pierz Sep 6 '17 at 16:08
+Don't forget to close the file! – Blairg23 Mar 14 '18 at 4:55
+4
+Anyone skimming this - pay attention to Pierz above and don't waste an hour wondering why your split() to an array was failing due to the \n causing a potentially wrong-numbered list of substrings! – volvox Apr 26 '18 at 20:28
+In what way does this address the actual question? This is answering the question How do I read the lines of a file in Python, and quite poorly, I might add. – AMC Feb 15 at 1:34
+

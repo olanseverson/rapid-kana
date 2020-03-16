@@ -1,7 +1,10 @@
 import wanakana
 import time
+import os
+from random import randint
 
 # CONFIGURATION FILE
+DIRNAME, FILENAME = os.path.split(os.path.abspath(__file__))
 SOURCE_FILE = "news.txt"
 class TimerError(Exception):
     """A custom exception used to report errors in use of Timer class"""
@@ -9,13 +12,14 @@ class TimerError(Exception):
 class UserInterface:
     
     def __init__(self,):
+        print('Start UI')
 
-    def display(word):
+    def display(self, word):
         print(word)
 
-    def display_answer(word):
+    def display_answer(self, word):
         print(word);
-    def get_response():
+    def get_response(self,):
         return input()
     
 class Timer:
@@ -41,41 +45,56 @@ class RapidKana:
     def __init__(self, source):
         self._timer=Timer()
         self._ui=UserInterface()
-        if (method == 'online'):
+        if (source == 'online'):
             self._script = self.get_script_from_web()
         elif (source == 'offline'):
             self._script = self.get_script_from_text(SOURCE_FILE)
             self._total_word = len(self._script)
             
 
-    def get_script_from_web():
+    def get_script_from_web(self,):
         return None
     
     def get_script_from_text(self, text_file):
-        with open(DIRNAME + text_file, 'r', encoding="utf8") as reader:
+        with open(DIRNAME+'/'+text_file, 'r', encoding="utf8") as reader:
             full_text = reader.read()
 
         # read each word (split first)
         return full_text.split()
 
-    def start_reading():
+    def sequential_reading(self,):
         self._timer.start()
         for each_word in self._script:
             self._ui.display(each_word)
             response = self._ui.get_response()
             correct_answer=wanakana.to_romaji(each_word)
-            if (response == correct_answer){
+            if (response == correct_answer):
                 self._num_of_correct_ans = self._num_of_correct_ans+1
-            } else {
+            else :
                 self._ui.display_answer(correct_answer)
-            }
+                
+        time_elapse = self._timer.stop()
+        self._ui.display(time_elapse)
+
+    def random_reading(self,):
+        self._timer.start()
+        for each_word in self._script:
+            rand_num=randint(0,len(self._script)-1)
+            self._ui.display(self._script[rand_num])
+            response = self._ui.get_response()
+            correct_answer=wanakana.to_romaji(self._script[rand_num])
+            if (response == correct_answer):
+                self._num_of_correct_ans = self._num_of_correct_ans+1
+            else :
+                self._ui.display_answer(correct_answer)
+                
         time_elapse = self._timer.stop()
         self._ui.display(time_elapse)
 
 def main():
     kana_reader=RapidKana('offline')
-    kana_reader.start_reading()
+    kana_reader.random_reading()
     
-if __name == '__main__':
+if __name__ == '__main__':
     main()
 

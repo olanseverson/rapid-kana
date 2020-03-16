@@ -1,7 +1,1 @@
-
-You might want to replace the last line with x = f.read().splitlines() to avoid including the newlines (\n) - as mentioned in this post: stackoverflow.com/a/20756176/436794 – Pierz Sep 6 '17 at 16:08
-Don't forget to close the file! – Blairg23 Mar 14 '18 at 4:55
-4
-Anyone skimming this - pay attention to Pierz above and don't waste an hour wondering why your split() to an array was failing due to the \n causing a potentially wrong-numbered list of substrings! – volvox Apr 26 '18 at 20:28
-In what way does this address the actual question? This is answering the question How do I read the lines of a file in Python, and quite poorly, I might add. – AMC Feb 15 at 1:34
-
+はる の こうこう やきゅう の たいかい が ちゅうし に なった にゅーす を きく かんじ の よみかた を つける まいとし はる、 こうしえん きゅうじょう で こうこう やきゅう の たいかい が あります。 ことし は さんがつ いち きゅう にち から はじまって、 にっぽん ちゅう から えらばれた さん に の がっこう が でる よてい でした。 しかし、 にっぽん こうこう やきゅう れんめい など は いち いち にち の かいぎ で、 ことし の たいかい を ちゅうしする こと を きめました。 あたらしい ころな ういるす が ひろがっている ため です。 たいかい の まるやま まさひろ かいちょう は「 ういるす の しんぱい が ある ので、 せんしゅ が あんしんして しあい が できる か わかりません。 とても ざんねん です が、 ちゅうし を きめました」 と はなしました。 たいかい に でる こと が きまっていた みやぎけん の せんだいいくえい こうこう で は、 きゃぷてん の たなか さちと せんしゅ が「 たいかい を ひらく こと が できる ように いろいろ かんがえてくださった みなさん に は ほんとうに かんしゃしています。 ちーむ の みんな で、 なつ の たいかい の ために まえ に すすんでいきたい です」 と はなしていました。 

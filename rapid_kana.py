@@ -48,8 +48,8 @@ class Timer:
 
 class RapidKana:
     EXIT= 'q'
-    PARTICLE_LIST=['ga','ka','no','kara','made','de','ni','wo','he','to','’','nado']
-    NONLETTER = '~!,.1234567890;:"`"'
+    PARTICLE_LIST=['ga','ka','no','kara', 'ha','made','de','ni','wo','he','to','’','nado']
+    NONLETTER = '~!,.1234567890;:\'-"`"’‘'
     _script = None
     _ui = None
     _num_of_correct_ans = 0
@@ -91,7 +91,8 @@ class RapidKana:
         self._ui.display(time_elapse)
 
     def is_particle(self, word):
-        if wanakana.to_romaji(word) in self.PARTICLE_LIST:
+        kana = self.only_letters(wanakana.to_romaji(word))
+        if kana in self.PARTICLE_LIST:
             return True
         else:
             return False
@@ -127,8 +128,8 @@ class RapidKana:
         self._ui.display_speed(time_elapse, self._num_of_correct_ans)
 
 def main():
-    #kana_reader=RapidKana('offline')
-    #kana_reader.random_reading()
+    kana_reader=RapidKana('offline')
+    kana_reader.random_reading()
     
     
 if __name__ == '__main__':

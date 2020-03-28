@@ -1,12 +1,14 @@
+import sys
 import wanakana
 import time
 import os
 from random import randint
-
+from google_speech import Speech
 
 # CONFIGURATION FILE
 DIRNAME, FILENAME = os.path.split(os.path.abspath(__file__))
 SOURCE_FILE = "news.txt"
+LANG = "ja"
 class TimerError(Exception):
     """A custom exception used to report errors in use of Timer class"""
 
@@ -28,7 +30,9 @@ class UserInterface:
         print("You get "+str(score)+" from "+ str(max_score))
 
     def display_speed(self, time, score):
-        print("SPEED: "+str(score/time)+" word/minute")
+        if time == 0:
+            return
+        print("SPEED: "+str(round(score*60/time))+" word/minute")
 
     def display_time(self, time):
         print("Total time: "+str(time)+' seconds')
@@ -48,7 +52,7 @@ class Timer:
 
 class RapidKana:
     EXIT= 'q'
-    PARTICLE_LIST=['ga','ka','no','kara', 'ha','made','de','ni','wo','he','to','’','nado']
+    PARTICLE_LIST=['ga','ka','no','kara', 'ha','made','de','ni','wo','he','to','’','nado', 'desu']
     NONLETTER = '~!,.1234567890;:\'-"`"’‘'
     _script = None
     _ui = None
@@ -72,7 +76,6 @@ class RapidKana:
     def get_script_from_text(self, text_file):
         with open(DIRNAME+'/'+text_file, 'r', encoding="utf8") as reader:
             full_text = reader.read()
-
         # read each word (split first)
         return full_text.split()
 
@@ -127,11 +130,61 @@ class RapidKana:
         self._ui.display_score(self._num_of_correct_ans, word_counter)
         self._ui.display_speed(time_elapse, self._num_of_correct_ans)
 
-def main():
+def kana_reading():
     kana_reader=RapidKana('offline')
     kana_reader.random_reading()
+
+def play_speech(text, speed):
+    speech=Speech(text,LANG)
+    sox_effects = ("speed", speed)
+    speech.play(sox_effects)
+    ##speech.play()
+
+def rand_num_speech(max_num):
+    user_input = input("'SPACE' to continue, 'q' to exit.")
+    while (user_input!='q'):
+        rand_num=str(randint(0,max_num))
+        play_speech(rand_num, "1.0")
+        user_input = input("'SPACE' to continue, 'q' to exit.")
+
+def is_number(text):
+    try:
+        val=int(text)
+        return True
+    except ValueError:
+        try:
+            val=float(text)
+            return True
+        except ValueError:
+            return False
     
+def number_speech(options):
     
+    if (len(options)==0):
+        rand_num_speech(10000) # default range
+    elif (options[0]=='-telp'):
+        telp_speech()
+    elif (options[0]=='-time'):
+        time_speech()
+    elif (options[0]=='-month'):
+        month_speech()
+    elif (is_number(options[0])):
+        rand_num_speech(int(options[0]))
+    else:
+        print("unknown options")
+    
+def main():
+    speech=Speech("10","ja")
+    speech.play()
+    arg = sys.argv[1:]          # ignore script name (arg[0])
+    if (len(arg)==0):
+        print('empty argument')
+    elif (arg[0]=='kana' or arg[0]=='Kana'):
+        kana_reading()
+    elif (arg[0]=='num' or arg[0]=='Num'):
+        number_speech(arg[1:])  # ignore the 'num' element
+    else:
+        print("unknown argument")
+        
 if __name__ == '__main__':
     main()
-

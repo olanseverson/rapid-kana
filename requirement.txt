@@ -1,6 +1,9 @@
+appdirs==1.4.3
 certifi==2019.11.28
 chardet==3.0.4
+google-speech==1.1.0
 idna==2.9
 requests==2.23.0
 urllib3==1.25.8
 wanakana-python==1.2.2
+web-cache==1.1.0

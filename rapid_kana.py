@@ -9,6 +9,7 @@ from google_speech import Speech
 DIRNAME, FILENAME = os.path.split(os.path.abspath(__file__))
 SOURCE_FILE = "news.txt"
 LANG = "ja"
+QUIT = 'q'
 class TimerError(Exception):
     """A custom exception used to report errors in use of Timer class"""
 
@@ -141,11 +142,15 @@ def play_speech(text, speed):
     ##speech.play()
 
 def rand_num_speech(max_num):
-    user_input = input("'SPACE' to continue, 'q' to exit.")
-    while (user_input!='q'):
+    user_input = ''
+    while (user_input!=QUIT):
         rand_num=str(randint(0,max_num))
-        play_speech(rand_num, "1.0")
-        user_input = input("'SPACE' to continue, 'q' to exit.")
+        while True:
+            play_speech(rand_num, "1.0")
+            user_input = str(input(">> "))
+            if (rand_num==user_input or user_input==QUIT):
+                break
+        
 
 def is_number(text):
     try:
@@ -157,9 +162,28 @@ def is_number(text):
             return True
         except ValueError:
             return False
+
+def rand_N_digit(n):
+    end=10**n-1
+    start=10**(n-1)
+    return randint(start,end)
+    
+def telp_speech():
+    usr_input=''
+    while usr_input!=QUIT:
+        text=str(rand_N_digit(3))+"-"+str(rand_N_digit(4))+"-"+str(rand_N_digit(4))
+        while True:
+            print(text)
+            play_speech(text, "1.0")
+            usr_input=str(input(">> "))
+            if (usr_input==text or usr_input==QUIT):
+                break
+            
+    
+
     
 def number_speech(options):
-    
+    print("Press 'q' to quit")
     if (len(options)==0):
         rand_num_speech(10000) # default range
     elif (options[0]=='-telp'):
@@ -174,8 +198,6 @@ def number_speech(options):
         print("unknown options")
     
 def main():
-    speech=Speech("10","ja")
-    speech.play()
     arg = sys.argv[1:]          # ignore script name (arg[0])
     if (len(arg)==0):
         print('empty argument')

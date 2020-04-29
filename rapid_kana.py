@@ -128,7 +128,7 @@ class RapidKana:
                 
         time_elapse = int(self._timer.stop())
         self._ui.display_time(time_elapse)
-        self._ui.display_score(self._num_of_correct_ans, word_counter)
+        self._ui.display_score(self._num_of_correct_ans, word_counnter)
         self._ui.display_speed(time_elapse, self._num_of_correct_ans)
 
 def kana_reading():
@@ -140,17 +140,6 @@ def play_speech(text, speed):
     sox_effects = ("speed", speed)
     speech.play(sox_effects)
     ##speech.play()
-
-def rand_num_speech(max_num):
-    user_input = ''
-    while (user_input!=QUIT):
-        rand_num=str(randint(0,max_num))
-        while True:
-            play_speech(rand_num, "1.0")
-            user_input = str(input(">> "))
-            if (rand_num==user_input or user_input==QUIT):
-                break
-        
 
 def is_number(text):
     try:
@@ -166,37 +155,55 @@ def is_number(text):
 def rand_N_digit(n):
     end=10**n-1
     start=10**(n-1)
-    return randint(start,end)
-    
-def telp_speech():
-    usr_input=''
-    while usr_input!=QUIT:
-        text=str(rand_N_digit(3))+"-"+str(rand_N_digit(4))+"-"+str(rand_N_digit(4))
-        while True:
-            print(text)
-            play_speech(text, "1.0")
-            usr_input=str(input(">> "))
-            if (usr_input==text or usr_input==QUIT):
-                break
-            
-    
+    return randint(start,end)    
 
+def text_generator(options):
+    text=''
+    if (len(options)==0):
+        text=randint(0,10000) #default range
+    elif (options[0]=='-telp'):
+        text=str(rand_N_digit(4))+"-"+str(rand_N_digit(1))
+    elif (options[0]=='-clock'):
+        text=str(randint(0,12))+":"+str(randint(0,59))
+    elif (options[0]=='-month'):
+        text=str(randint(1,12))+"月"
+    elif (options[0]=='-day'):
+        text=randday()
+    elif (is_number(options[0])):
+        text=randint(0,int(options[0]))
+
+    return str(text)
+
+def input_is_correct(options, usr_input, text):
+    if (len(options)==0):
+        return usr_input==text
+    elif (options[0]=='-telp'):
+        return usr_input==text
+    elif (options[0]=='-clock'):
+        return usr_input==text
+    elif (options[0]=='-month'):
+        return usr_input==text[:-1]
+    elif (options[0]=='-day'):
+        return True
+    elif (is_number(options[0])):
+        return usr_input==text
     
 def number_speech(options):
-    print("Press 'q' to quit")
-    if (len(options)==0):
-        rand_num_speech(10000) # default range
-    elif (options[0]=='-telp'):
-        telp_speech()
-    elif (options[0]=='-time'):
-        time_speech()
-    elif (options[0]=='-month'):
-        month_speech()
-    elif (is_number(options[0])):
-        rand_num_speech(int(options[0]))
-    else:
-        print("unknown options")
-    
+    print("Press 'q' to quit")    
+    usr_input=''
+    while usr_input!=QUIT:
+        text=text_generator(options)    
+        # exit program if there is no available choice
+        if(text==''):
+            print("Unknown option!!")
+            return        
+        while True:
+            play_speech(text, "1.0")
+            usr_input=str(input(">> "))
+            if(input_is_correct(options,usr_input,text)
+               or usr_input==QUIT):
+                break
+
 def main():
     arg = sys.argv[1:]          # ignore script name (arg[0])
     if (len(arg)==0):

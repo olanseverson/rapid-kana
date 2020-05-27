@@ -11,12 +11,12 @@ import re
 DIRNAME, FILENAME = os.path.split(os.path.abspath(__file__))
 DEF_VOCAB_FILE = 0
 DRIVER_DELAY = 0.5 # second(s)
-N_TIMES = 3
+N_TIMES = 2
 
 class Vocab:
     def __init__(self, filename, format_file):
         if(format_file=='txt'):
-            with open(filename, 'r', encoding="utf8") as reader:
+            with open(DIRNAME+"/"+filename, 'r', encoding="utf8") as reader:
                 raw_data = reader.read().splitlines()
             self.__df=self.__parse_txt(raw_data)
         elif (format_file=='csv'):
@@ -37,14 +37,17 @@ class Vocab:
         return pd.DataFrame(list_of_tuples, columns=('jp', 'en'))
         
     def get_rand_vocab(self,):
-        row_num = randint(1,self.__df.shape[0])
+        row_num = randint(0,self.__df.shape[0]-1)
         en=self.__df.iloc[row_num]['en']
         jp=self.__df.iloc[row_num]['jp']
+        print(row_num)
+        print(en)
+        print(jp)
         return en,jp
     
 class Speaker:
     def __init__(self, lesson_num):
-        filename='mnn_'+str(lesson_num)+".txt"
+        filename='vocab/Minna_no_nihongo_2.'+str(lesson_num)+".txt"
         self.__vocab = Vocab(filename, 'txt')
 
     def __driver(self, text, lang):
@@ -81,8 +84,9 @@ def main():
         else:
             speaker=Speaker(arg[0])
         while True:
-            speaker.speak_jp_to_en(1)                
+            speaker.speak_jp_to_en(DRIVER_DELAY)
     except KeyboardInterrupt:
+        print("Interrupt")
         pass
 
 if __name__ == '__main__':

@@ -1,0 +1,17 @@
+kanji [hiragana] /english/
+見ます [みます] /check/
+診ます [みます] /check/
+探します [さがします] /look for- search/
+遅れます [おくれます] /be late/
+電車に遅れます [でんしゃにおくれます] /be late for a train/
+間に合います [まにあいます] /be on time/
+電車に間に合う [でんしゃにまにあいます] /be on time for a train/
+やります [やります] /do/
+参加します [さんかします] /attend/
+パーティーに参加します [パーティーにさんかします] /attend a party/
+申し込みます [もうしこみます] /apply for enter for/
+都合がいい [つごうがいい] /convenient (regarding time)/
+都合が悪い [つごうがわるい] /inconvenient (regarding time)/
+気分がいい [きぶんがいい] /feel well/
+気分が悪い [きぶんがわるい] /feel ill/
+新聞社 [しんぶんしゃ] /newspaper publishing company newspaper office/

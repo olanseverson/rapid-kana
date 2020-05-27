@@ -11,7 +11,7 @@ SOURCE_FILE = "news.txt"
 LANG = "ja"
 QUIT = 'q'
 class TimerError(Exception):
-    """A custom exception used to report errors in use of Timer class"""
+    """A custom excenption used to report errors in use of Timer class"""
 
 class UserInterface:
     
@@ -164,9 +164,15 @@ def text_generator(options):
     elif (options[0]=='-telp'):
         text=str(rand_N_digit(4))+"-"+str(rand_N_digit(1))
     elif (options[0]=='-clock'):
-        text=str(randint(0,12))+":"+str(randint(0,59))
+        text=str(randint(0,12))+":"
+        x=randint(0,59)
+        if (x<10):
+            text=text+"0"+str(x)
+        else:
+            text=text+str(x)
+        
     elif (options[0]=='-month'):
-        text=str(randint(1,12))+"月"
+        text=str(randint(1,12))+"tsuki"
     elif (options[0]=='-day'):
         text=randday()
     elif (is_number(options[0])):

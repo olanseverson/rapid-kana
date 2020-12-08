@@ -8,7 +8,7 @@ from google_speech import Speech
 import re
 
 # CONFIGURATION FILE
-filename_txt="vocab.txt"
+FILENAME_TXT="vocab.txt"
 DIRNAME, FILENAME = os.path.split(os.path.abspath(__file__))
 DEFAULT_VOCAB_FILE = 0
 DRIVER_DELAY = 0.5 # second(s)
@@ -48,8 +48,7 @@ class Vocab:
     
 class Speaker:
     def __init__(self, lesson_num):
-        filename='vocab/Minna_no_nihongo_2.'+str(lesson_num)+".txt"
-        self.__vocab = Vocab(filename, 'txt')
+        self.__vocab = Vocab(FILENAME_TXT, 'txt')
 
     def __driver(self, text, lang):
         speech=Speech(text, lang)

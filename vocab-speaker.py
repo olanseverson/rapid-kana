@@ -8,10 +8,11 @@ from google_speech import Speech
 import re
 
 # CONFIGURATION FILE
+filename_txt="vocab.txt"
 DIRNAME, FILENAME = os.path.split(os.path.abspath(__file__))
-DEF_VOCAB_FILE = 0
+DEFAULT_VOCAB_FILE = 0
 DRIVER_DELAY = 0.5 # second(s)
-N_TIMES = 3
+N_TIMES = 3 #repetition
 
 class Vocab:
     def __init__(self, filename, format_file):
@@ -80,7 +81,7 @@ def main():
     arg=sys.argv[1:]
     try:
         if (len(arg)==0):
-            speaker=Speaker(DEF_VOCAB_FILE)
+            speaker=Speaker(DEFAULT_VOCAB_FILE)
         else:
             speaker=Speaker(arg[0])
         while True:
